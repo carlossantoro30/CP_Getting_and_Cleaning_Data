@@ -33,13 +33,13 @@ read_column <- function(cpath){
 read_dataset <- function(dataset, features){
         #This function reads the training or test dataset.
         
-        f <- paste("./UCI HAR Dataset/", dataset, collapse = NULL)
+        f <- paste("./UCI HAR Dataset/", dataset, collapse = NULL, sep = "")
         
-        fx <- paste(f, "/X_", dataset, ".txt", collapse = NULL)
-        x_df <- read_column(fx)
+        fx <- paste(f, "/X_", dataset, ".txt", collapse = NULL, sep = "")
+        x_df <- read_sets(fx)
         
-        fy <- paste(f, "/Y_", dataset, ".txt", collapse = NULL)
-        f_subject <- paste(f, "/subject_", dataset, ".txt", collapse = NULL)
+        fy <- paste(f, "/Y_", dataset, ".txt", collapse = NULL, sep = "")
+        f_subject <- paste(f, "/subject_", dataset, ".txt", collapse = NULL, sep = "")
         y <- read_column(fy)
         subject <- read_column(f_subject)
         
@@ -48,6 +48,6 @@ read_dataset <- function(dataset, features){
         
         df <- x_df %>%
                 gather(key = "Label_Subject", value = "Value", -Feature) %>%
-                separate(Label_Subject, into = c(Label, Subject), sep = "_")
+                separate(Label_Subject, into = c("Label", "Subject"), sep = "_")
         df
 }

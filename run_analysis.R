@@ -5,16 +5,19 @@
 #Date: Dec - 2018
 #Author: Carlos Lima Santoro
 
-#Set the working directoty as the same of the "UCI HAR Dataset" directory
-data_directory <- "C:/Users/csantoro/Downloads/CP_Getting_and_Cleaning_Data-master"
-setwd(data_directory)
-
-#Set the scripts directory
-script_directory <- "C:/Users/csantoro/Downloads/CP_Getting_and_Cleaning_Data-master"
-script_directory <- paste(script_directory, "/Functions.R", sep = "", collapse = NULL)
+print(paste("Working directory: ",getwd(), sep = "", collapse = NULL))
 
 #Source the required functions
-source(script_directory)
+script_path <- "./Functions.R"
+source(script_path)
+
+#Get data
+web_path <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+if(!dir.exists("Course_Project_GCD")){dir.create("./Course_Project_GCD")}
+download.file(web_path, destfile = "./Course_Project_GCD/data.zip")
+setwd("./Course_Project_GCD")
+unzip("data.zip")
+file.remove("data.zip")
 
 features <- read_column("./UCI HAR Dataset/features.txt")
 features <- features[-seq(from = 1, to = length(features), by = 2)]

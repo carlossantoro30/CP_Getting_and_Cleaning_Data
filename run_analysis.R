@@ -6,6 +6,7 @@
 #Author: Carlos Lima Santoro
 
 print(paste("Working directory: ",getwd(), sep = "", collapse = NULL))
+initial_path <- getwd()
 
 #Source the required packages and functions
 source("./Functions.R")
@@ -21,22 +22,31 @@ test_data <- read_dataset("test", features)
 labels <- read_sets("./UCI HAR Dataset/activity_labels.txt")
 
 #Merge datasets
-names(train_data)[4] <- "Value.Train"
-names(test_data)[4] <- "Value.Test"
+names(train_data)[4] <- "Train"
+names(test_data)[4] <- "Test"
 dataset <- full_join(x = train_data, y = test_data, by = c("y", "subject", "Feature"))
 names(labels) <- c("y", "Activity.Label")
 dataset <- left_join(x = dataset, y = labels, by = "y")       #Put descreptive activity names
 
-#Manipulation of data
-class(dataset$Value.Train) <- "numeric"
-class(dataset$Value.Test) <- "numeric"
+#Manipulation of "dataset" to build the dataset of step 5 of assignment description
+class(dataset$Train) <- "numeric"
+class(dataset$Test) <- "numeric"
 dataset <- dataset %>%
         select(-y) %>%
-        filter(grepl("mean|std", Feature))
-final_dataset <- dataset %>%
+        filter(grepl("mean|std", Feature)) %>%
         group_by(Activity.Label, subject) %>%
-        summarise(Value.Train = mean(), Value.Test = mean())
-        
+        summarise(mean(Test), mean(Train))
+names(dataset) <- sub("mean\\Q(\\ETest\\Q)\\E", "Test", names(dataset))
+names(dataset) <- sub("mean\\Q(\\ETrain\\Q)\\E", "Train", names(dataset))
+final_dataset <- gather(dataset, key = "Set.Type", value = "Mean.Value", -Activity.Label, -subject)
+
+#Saving final_dataset in the working directory
+setwd(initial_path)
+write.csv(final_dataset,
+          file = "final_dataset.csv",
+          append = TRUE,
+          fileEncoding = "UTF-8",
+          row.names = FALSE) 
         
 
 

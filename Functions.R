@@ -1,4 +1,4 @@
-#Functions of the run_analysis.R script.
+#Functions and packages of run_analysis.R script.
 
 library(dplyr)
 library(tibble)
@@ -6,9 +6,9 @@ library(readtext)
 library(stringr)
 library(tidyr)
 
+# This function download the required data and save it in a new directory.
+# It also make this script more reproducible
 download.data <- function(){
-        #This function download the required data and save it in a new directory.
-
         web_path <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
         if(!dir.exists("Course_Project_GCD")){
                 dir.create("./Course_Project_GCD")
@@ -27,6 +27,7 @@ download.data <- function(){
         }
 }
 
+# This function creates a column dataset from text files
 read_sets <- function(fx){
         #
         
@@ -39,20 +40,18 @@ read_sets <- function(fx){
                 tbl_df()
 }
 
+# This function reads a .txt file where each value separated by
+# whitespace is an element of a vector. It returns a character
+# vector.
 read_column <- function(cpath){
-        #This function reads a .txt file where each value separated by
-        #       whitespace is an element of a vector. It returns the character
-        #       vector.
-
         readtext(cpath) %>%
                 str_squish() %>%
                 str_split(pattern = " ") %>%
                 unlist()
 }
 
+#This function reads the training or test dataset.
 read_dataset <- function(dataset, features){
-        #This function reads the training or test dataset.
-
         f <- paste("./UCI HAR Dataset/", dataset, collapse = NULL, sep = "")
 
         fx <- paste(f, "/X_", dataset, ".txt", collapse = NULL, sep = "")
@@ -63,7 +62,6 @@ read_dataset <- function(dataset, features){
         y <- read_column(fy)
         subject <- read_column(f_subject)
 
-        #names(x_df) <- paste(y, subject, sep = "_", collapse = NULL)
         names(x_df) <- features
         x_df <- add_column(x_df, y, subject)
 

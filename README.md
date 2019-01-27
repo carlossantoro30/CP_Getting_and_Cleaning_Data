@@ -16,7 +16,7 @@ The data on this repository come from **Human Activity Recognition Using Smartph
 
 ## Sourcing the Main Script
 
-The main script *run_analysis.R* must be sourced in the same directory of *Funtions.R* script. The main script will create some directories and files. The data required will be downloaded automatically, so a web connection is required.
+The main script *run_analysis.R* must be sourced in the same directory of *Funtions.R* script. The main script will create some directories and files. The data required will be downloaded automatically, so a web connection is required. If the data is already in working directory, so it will not be downloaded and a connection is not required. 
 
 ## Reading *final_dataset.csv*
 

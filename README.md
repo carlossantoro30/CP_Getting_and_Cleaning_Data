@@ -1,4 +1,4 @@
-# CP_Getting_and_Cleaning_Data
+# Course Project - Getting and Cleaning Data
 
 Repository for the Johns Hopkins Course Project of Getting and Cleaning Data.
 

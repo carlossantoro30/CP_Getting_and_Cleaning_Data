@@ -5,7 +5,7 @@ Repository for the Johns Hopkins Course Project of Getting and Cleaning Data.
 The data on this repository come from **Human Activity Recognition Using Smartphones Data Set** project, that can be found here: http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones. A transformation is applied on the data of this project by the **run_analysis.R**, script to produce *final_dataset.csv*. The *final_dataset.csv* is tidy, because it follows the tidy data principles (Wickham 2014):
  * Eeach variable forms a column.
  * Each observation forms a row.
- * Each type of observational unite forms a table.
+ * Each type of observational unit forms a table.
 
 ## Files
 
